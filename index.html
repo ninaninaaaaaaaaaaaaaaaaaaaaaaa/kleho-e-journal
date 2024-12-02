@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інформаційна система</title>
+    <style>
+        /* Основний стиль для всієї сторінки */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: url("lutskyj-pedagogichnyj-koledzh-1.jpg") no-repeat;
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+}
+
+h1 {
+	text-align: center;
+	background-color: #4caf50;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	color: #2c3e50;
+}
+
+.systemlog {
+	margin-top: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 250px;
+	border: 1px solid black;
+	border-radius: 7px;
+
+	background-color: #ccc;
+}
+
+.logo {
+	border-radius: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 100px;
+	height: 100px;
+	align-self: center;
+}
+
+#login {
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	height: 550px;
+	width: 450px;
+	border: 2px solid #4caf50;
+	border-radius: 10px;
+	background: rgba(0, 0, 0, .2);
+	backdrop-filter: blur(4px);
+	box-shadow: 0 0 5px rgba(0, 0, 0, .2), 0 0 15px rgba(0, 0, 0, .2), 0 0 30px rgba(0, 0, 0, .2);
+	display: flex;
+}
+
+.pickrole {
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border: 2px solid #4caf50;
+	color: white;
+	border-radius: 15px;
+	background-color: #4caf50;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	width: 150px;
+}
+
+#role {
+	width: 300px;
+	border-radius: 20px;
+
+
+}
+
+#passwordtext {
+	align-items: center;
+	margin-left: 13%;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	width: 140px;
+	border: 2px solid #4caf50;
+	justify-content: center;
+	text-align: center;
+	border-radius: 15px;
+	color: white;
+	background-color: #4caf50;
+}
+
+/* Стиль заголовків */
+h2 {
+	color: #2c3e50;
+	margin-bottom: 16px;
+}
+
+/* Стиль для полів вибору ролі та пароля */
+label {
+	display: block;
+	margin: 8px 0 4px;
+	font-weight: bold;
+}
+
+select,
+input[type="password"],
+input[type="text"] {
+	justify-content: center;
+	text-align: left;
+	width: 100%;
+	padding: 10px;
+	margin: 8px 0;
+	border: 1px solid #ccc;
+	border-radius: 12px;
+	box-sizing: border-box;
+}
+
+/* Контейнер для поля пароля і кнопки-перемикача */
+.input-container {
+	position: relative;
+	width: auto;
+}
+
+.password-input {
+	padding-right: 10px;
+}
+
+#togglePassword {
+	background: none;
+	border: none;
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+}
+
+#togglePassword ion-icon {
+	font-size: 1.2em;
+	color: #888;
+}
+
+/* Стиль кнопки входу */
+#login_button {
+	width: 100%;
+	background-color: #4caf50;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	padding: 10px;
+	font-weight: bold;
+	cursor: pointer;
+	margin-top: 16px;
+}
+
+#login_button:hover {
+	background-color: #45a049;
+}
+
+#togglePassword ion-icon:hover {
+	font-size: 1.3em;
+	color: #3c3a3a;
+}
+
+/* Стиль повідомлення про помилку */
+.error {
+	font-weight: bold;
+	border-radius: 6px;
+	background: #dedddd;
+	padding: 5px;
+	color: red;
+	font-size: 0.7em;
+	margin-top: 10px;
+}
+
+/* Прихований елемент */
+.hidden {
+	display: none;
+}
+    </style>
+</head>
+<body>
+    <h1>Інформаційна система оцінювання здобувачів КЗВО "Луцький педагогічний коледж"</h1>
+
+    <div id="login">
+        <h2 class='systemlog'>Вхід до системи</h2>
+        <img src='logo.png' class='logo'>
+        <label for="role" class='pickrole'>Оберіть роль:</label>
+        <select id="role" onchange="showPasswordInput()">
+            <option value="">Оберіть роль</option>
+            <option value="admin">Адміністрація</option>
+            <option value="teacher">Викладач</option>
+            <option value="student">Студент</option>
+        </select>
+
+        <div id="passwordInput" class="hidden">
+            <label for="password" id='passwordtext'>Пароль:</label>
+            <div class="input-container">
+                <input type="password" id="password" class="password-input" placeholder="Введіть пароль">
+                <button id="togglePassword" onclick="togglePasswordVisibility()" aria-label="Показати/Сховати пароль">
+                    <ion-icon name="eye-off-outline" id="eyeIcon"></ion-icon>
+                </button>
+            </div>
+            <button id="login_button" onclick="login()">Увійти</button>
+        </div>
+
+        <div id="errorMessage" class="error hidden">Неправильний пароль</div>
+    </div>
+
+    <script>
+        const adminPassword = "admin123";
+const teacherPassword = "teacher123";
+
+function showPasswordInput() {
+    const role = document.getElementById("role").value;
+    document.getElementById("passwordInput").classList.toggle("hidden", role === "student");
+    document.getElementById("errorMessage").classList.add("hidden");
+
+    if (role === "student") {
+        window.location.href = "student.html";
+    }
+}
+
+function login() {
+    const role = document.getElementById("role").value;
+    const password = document.getElementById("password").value;
+
+    if (role === "admin" && password === adminPassword) {
+        window.location.href = "admin.html";
+    } else if (role === "teacher" && password === teacherPassword) {
+        window.location.href = "teacher.html";
+    } else {
+        const errorMessageElement = document.getElementById("errorMessage");
+        errorMessageElement.classList.remove("hidden");
+
+        // Зникнення повідомлення через 7 секунд
+        setTimeout(function() {
+            errorMessageElement.classList.add("hidden");
+        }, 7000);
+    }
+}
+
+// Функція для обробки натискання клавіші Enter
+function handleEnterKey(event) {
+    if (event.key === "Enter") {
+        login(); // Викликаємо функцію login при натисканні Enter
+    }
+}
+
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
+
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.setAttribute('name', 'eye-outline');
+    } else {
+        passwordInput.type = 'password';
+        eyeIcon.setAttribute('name', 'eye-off-outline');
+    }
+}
+
+// Додаємо обробник події для натискання клавіші в поле вводу пароля
+document.getElementById("password").addEventListener("keydown", handleEnterKey);
+
+    </script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
